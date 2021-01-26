@@ -1,0 +1,85 @@
+.thought-l {
+  width: 100%;
+  margin-bottom: 3rem;
+  &-item {
+    animation: pulse 1s infinite ease-in-out;
+    border-radius: 0.4rem;
+  }
+
+  &-top,
+  &-mid {
+    margin-bottom: 1rem;
+  }
+
+  &-mid {
+    margin: 0.5rem auto;
+    width: 68%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &-bottom {
+    margin: 0 auto;
+    width: 68%;
+    display: flex;
+  }
+
+  &-top {
+    display: flex;
+    align-items: center;
+
+    &-d {
+      display: flex;
+      flex-direction: column;
+      margin-right: auto;
+    }
+  }
+
+  &-img {
+    width: 6rem;
+    height: 6rem;
+    border-radius: 100%;
+    margin-right: 2rem;
+  }
+
+  &-username {
+    width: 9rem;
+    height: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  &-time {
+    width: 3rem;
+    height: 1.2rem;
+  }
+
+  &-delete {
+    height: 2rem;
+    width: 2rem;
+  }
+
+  &-body {
+    width: 100%;
+    height: 1.1rem;
+    margin: 0 auto 0.5rem auto;
+  }
+
+  &-icon {
+    height: 2rem;
+    width: 2rem;
+    margin-right: 3rem;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    background-color: rgba(165, 165, 165, 0.102);
+  }
+  50% {
+    background-color: rgba(165, 165, 165, 0.302);
+  }
+  100% {
+    background-color: rgba(165, 165, 165, 0.1);
+  }
+}
