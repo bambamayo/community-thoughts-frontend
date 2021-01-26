@@ -7,6 +7,8 @@
   --color-grey-dark: #343a40;
   --color-grey-mid: #6c757d;
   --color-grey-light: #ced4da;
+  --color-danger: #dc3545;
+  --color-success: #198754;
 }
 
 *,
@@ -38,4 +40,9 @@ a {
 
 li {
   list-style: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
 }
