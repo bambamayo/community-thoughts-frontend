@@ -1,35 +1,14 @@
+import * as React from "react";
 import ThoughtLoader from "../components/Loaders/ThoughtLoader";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import Thought from "../components/Thought";
 import { formatDate } from "../helpers";
-
-const FETCH_THOUGHTS_QUERY = gql`
-  query {
-    getThoughts {
-      id
-      body
-      createdAt
-      username
-      upvoteCount
-      commentCount
-      downvoteCount
-      upvotes {
-        username
-      }
-      downvotes {
-        username
-      }
-      comments {
-        id
-        username
-        createdAt
-        body
-      }
-    }
-  }
-`;
+import { AuthContext } from "../context/auth";
+import ThoughtForm from "../components/ThoughtForm/ThoughtForm";
+import { FETCH_THOUGHTS_QUERY } from "../util/queries";
 
 export default function Home() {
+  const { user } = React.useContext(AuthContext);
   const { loading, data, error } = useQuery(FETCH_THOUGHTS_QUERY);
 
   let show;
@@ -74,10 +53,15 @@ export default function Home() {
   }
   return (
     <section className="page-container home">
-      <div className="home__warning">
-        ! Only logged in users can add thoughts, edit thoughts and vote on
-        thoughts
-      </div>
+      {user ? (
+        <ThoughtForm username={user.username} />
+      ) : (
+        <div className="home__warning">
+          ! Only logged in users can add thoughts, edit thoughts and vote on
+          thoughts
+        </div>
+      )}
+
       <div className="thoughts__list">{show}</div>
     </section>
   );
