@@ -39,14 +39,16 @@ export default function Home() {
       show = data.getThoughts.map((thought) => (
         <Thought
           key={thought.id}
+          id={thought.id}
           avatarPresent={false}
           author={thought.username}
-          userPost={true}
           body={thought.body}
           commentCount={thought.commentCount}
           upvoteCount={thought.upvoteCount}
           downvoteCount={thought.downvoteCount}
           timePosted={`${formatDate(thought.createdAt)} ago`}
+          upvotes={thought.upvotes}
+          downvotes={thought.downvotes}
         />
       ));
     }

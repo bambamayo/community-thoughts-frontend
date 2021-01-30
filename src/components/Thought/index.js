@@ -1,18 +1,28 @@
+import React from "react";
 import PropTypes from "prop-types";
 import { BiUserCircle } from "react-icons/bi";
 import { AiTwotoneDelete } from "react-icons/ai";
-import { FaThumbsDown, FaThumbsUp, FaRegComment } from "react-icons/fa";
+import { FaRegComment } from "react-icons/fa";
+import { useHistory } from "react-router-dom";
+import { AuthContext } from "../../context/auth";
+import UpVote from "../VoteButtons/UpVote";
+import DownVote from "../VoteButtons/DownVote";
 
 export default function Thought({
   avatarPresent,
   author,
-  userPost,
   timePosted,
   body,
   commentCount,
   upvoteCount,
   downvoteCount,
+  id,
+  upvotes,
+  downvotes,
 }) {
+  const { user } = React.useContext(AuthContext);
+  const history = useHistory();
+
   return (
     <div className="thought">
       <div className="thought__top">
@@ -32,7 +42,7 @@ export default function Thought({
           <span className="thought__time">{timePosted}</span>
           <p className="thought__body">{body}</p>
         </div>
-        {userPost && (
+        {user && user.username === author && (
           <button className="thought__delete">
             <AiTwotoneDelete title="delete icon" />
           </button>
@@ -40,15 +50,12 @@ export default function Thought({
       </div>
 
       <div className="thought__bottom">
-        <button className="thought__iconbtn">
-          <FaThumbsUp title="upvote icon" />
-          <span className="thought__metacount">{upvoteCount}</span>
-        </button>
-        <button className="thought__iconbtn">
-          <FaThumbsDown title="downvote icon" />
-          <span className="thought__metacount">{downvoteCount}</span>
-        </button>
-        <button className="thought__iconbtn">
+        <UpVote thought={{ id, upvoteCount, upvotes }} />
+        <DownVote thought={{ id, downvoteCount, downvotes }} />
+        <button
+          className="thought__iconbtn"
+          onClick={() => history.push(`/${author}/thought/${id}`)}
+        >
           <FaRegComment title="comment icon" />
           <span className="thought__metacount">{commentCount}</span>
         </button>
@@ -60,7 +67,6 @@ export default function Thought({
 Thought.propTypes = {
   avatarPresent: PropTypes.bool.isRequired,
   author: PropTypes.string.isRequired,
-  userPost: PropTypes.bool.isRequired,
   timePosted: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
   commentCount: PropTypes.number.isRequired,

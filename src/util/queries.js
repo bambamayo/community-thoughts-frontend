@@ -11,9 +11,11 @@ export const FETCH_THOUGHTS_QUERY = gql`
       commentCount
       downvoteCount
       upvotes {
+        id
         username
       }
       downvotes {
+        id
         username
       }
       comments {
