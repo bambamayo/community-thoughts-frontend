@@ -20,8 +20,11 @@
   }
 
   &__group {
-    margin-bottom: 2rem;
     width: 30%;
+
+    &:not(:last-child) {
+      margin-bottom: 2rem;
+    }
   }
 
   &__label,
@@ -84,6 +87,16 @@
       content: "!";
       display: inline-block;
       font-size: 1.4rem;
+    }
+  }
+
+  &__change {
+    width: 30%;
+    margin: 0.3rem auto 0 auto;
+
+    &-link {
+      font-size: 1.2rem;
+      text-decoration: underline;
     }
   }
 }

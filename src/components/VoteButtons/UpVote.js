@@ -1,20 +1,27 @@
 import { gql, useMutation } from "@apollo/client";
 import * as React from "react";
 import { FaThumbsUp } from "react-icons/fa";
+import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../context/auth";
 
-export default function UpVote({ thought: { id, upvoteCount, upvotes } }) {
+export default function UpVote({
+  thought: { id, upvoteCount, upvotes, downvotes },
+}) {
   const [liked, setLiked] = React.useState(false);
-
   const { user } = React.useContext(AuthContext);
+
+  const history = useHistory();
 
   React.useEffect(() => {
     if (user && upvotes.find((upvote) => upvote.username === user.username)) {
       setLiked(true);
-    } else {
+    } else if (
+      user &&
+      downvotes.find((downvote) => downvote.username === user.username)
+    ) {
       setLiked(false);
     }
-  }, [user, upvotes]);
+  }, [user, upvotes, downvotes]);
 
   const [upvoteThought] = useMutation(UPVOTE_THOUGHT_MUTATION, {
     variables: { thoughtId: id },
@@ -32,7 +39,10 @@ export default function UpVote({ thought: { id, upvoteCount, upvotes } }) {
   }
 
   return (
-    <button className="thought__iconbtn" onClick={upvoteThought}>
+    <button
+      className="thought__iconbtn"
+      onClick={!user ? () => history.push("/signup") : upvoteThought}
+    >
       {likeButton}
       <span className="thought__metacount">{upvoteCount}</span>
     </button>

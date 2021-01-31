@@ -50,8 +50,8 @@ export default function Thought({
       </div>
 
       <div className="thought__bottom">
-        <UpVote thought={{ id, upvoteCount, upvotes }} />
-        <DownVote thought={{ id, downvoteCount, downvotes }} />
+        <UpVote thought={{ id, upvoteCount, downvotes, upvotes }} />
+        <DownVote thought={{ id, downvoteCount, upvotes, downvotes }} />
         <button
           className="thought__iconbtn"
           onClick={() => history.push(`/${author}/thought/${id}`)}

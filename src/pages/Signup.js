@@ -1,6 +1,6 @@
 import { gql, useMutation } from "@apollo/client";
 import * as React from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import { AuthContext } from "../context/auth";
 import { useForm } from "../util/hooks";
@@ -120,6 +120,11 @@ export default function Signup() {
           </button>
         </div>
       </form>
+      <div className="auth__change">
+        <Link className="auth__change-link" to="/login">
+          or log into your account
+        </Link>
+      </div>
     </section>
   );
 }
