@@ -1,14 +1,16 @@
 import { gql, useMutation } from "@apollo/client";
 import * as React from "react";
 import { FaThumbsDown } from "react-icons/fa";
+import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../context/auth";
 
 export default function DownVote({
-  thought: { id, downvoteCount, downvotes },
+  thought: { id, downvoteCount, downvotes, upvotes },
 }) {
   const [disliked, setDisliked] = React.useState(false);
-
   const { user } = React.useContext(AuthContext);
+
+  const history = useHistory();
 
   React.useEffect(() => {
     if (
@@ -16,10 +18,13 @@ export default function DownVote({
       downvotes.find((downvote) => downvote.username === user.username)
     ) {
       setDisliked(true);
-    } else {
+    } else if (
+      user &&
+      upvotes.find((upvote) => upvote.username === user.username)
+    ) {
       setDisliked(false);
     }
-  }, [user, downvotes]);
+  }, [user, downvotes, upvotes]);
 
   const [downvoteThought] = useMutation(DOWNVOTE_THOUGHT_MUTATION, {
     variables: { thoughtId: id },
@@ -37,7 +42,10 @@ export default function DownVote({
   }
 
   return (
-    <button className="thought__iconbtn" onClick={downvoteThought}>
+    <button
+      className="thought__iconbtn"
+      onClick={!user ? () => history.push("/signup") : downvoteThought}
+    >
       {dislikeButton}
       <span className="thought__metacount">{downvoteCount}</span>
     </button>
