@@ -79,7 +79,7 @@ export default function Login() {
 
         <div className="auth__group">
           <button className="auth__submitbtn">
-            {loading ? <Spinner /> : "Create your free account"}
+            {loading ? <Spinner /> : "Login"}
           </button>
         </div>
       </form>
