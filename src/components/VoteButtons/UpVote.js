@@ -15,10 +15,7 @@ export default function UpVote({
   React.useEffect(() => {
     if (user && upvotes.find((upvote) => upvote.username === user.username)) {
       setLiked(true);
-    } else if (
-      user &&
-      downvotes.find((downvote) => downvote.username === user.username)
-    ) {
+    } else {
       setLiked(false);
     }
   }, [user, upvotes, downvotes]);
@@ -26,6 +23,11 @@ export default function UpVote({
   const [upvoteThought] = useMutation(UPVOTE_THOUGHT_MUTATION, {
     variables: { thoughtId: id },
   });
+
+  // function upvote() {
+  //   setLiked((prevState) => !prevState);
+  //   upvoteThought();
+  // }
 
   let likeButton;
   if (user) {
@@ -53,11 +55,18 @@ const UPVOTE_THOUGHT_MUTATION = gql`
   mutation upvoteThought($thoughtId: ID!) {
     upvoteThought(thoughtId: $thoughtId) {
       id
+      downvoteCount
+      upvoteCount
       upvotes {
         id
         username
+        createdAt
       }
-      upvoteCount
+      downvotes {
+        id
+        username
+        createdAt
+      }
     }
   }
 `;

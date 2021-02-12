@@ -56,7 +56,7 @@ export default function Thought({
           className="thought__iconbtn"
           onClick={() => history.push(`/${author}/thought/${id}`)}
         >
-          <FaRegComment title="comment icon" />
+          <FaRegComment title="comment" />
           <span className="thought__metacount">{commentCount}</span>
         </button>
       </div>

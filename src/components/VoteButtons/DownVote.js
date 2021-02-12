@@ -18,10 +18,7 @@ export default function DownVote({
       downvotes.find((downvote) => downvote.username === user.username)
     ) {
       setDisliked(true);
-    } else if (
-      user &&
-      upvotes.find((upvote) => upvote.username === user.username)
-    ) {
+    } else {
       setDisliked(false);
     }
   }, [user, downvotes, upvotes]);
@@ -38,7 +35,7 @@ export default function DownVote({
       dislikeButton = <FaThumbsDown title="downvote" />;
     }
   } else {
-    dislikeButton = <FaThumbsDown title="downupvote" />;
+    dislikeButton = <FaThumbsDown title="downvote" />;
   }
 
   return (
@@ -56,11 +53,18 @@ const DOWNVOTE_THOUGHT_MUTATION = gql`
   mutation downvoteThought($thoughtId: ID!) {
     downvoteThought(thoughtId: $thoughtId) {
       id
+      downvoteCount
+      upvoteCount
       downvotes {
         id
         username
+        createdAt
       }
-      downvoteCount
+      upvotes {
+        id
+        username
+        createdAt
+      }
     }
   }
 `;
