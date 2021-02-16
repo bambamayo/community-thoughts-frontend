@@ -1,0 +1,245 @@
+.thought-s {
+  &__thought {
+    width: 50%;
+    margin: 0 auto;
+  }
+
+  &__top {
+    display: flex;
+    align-items: center;
+  }
+
+  &__postedby {
+    &-btn {
+      height: 10rem;
+      width: 10rem;
+      background-color: transparent;
+
+      & svg {
+        height: 100%;
+        width: 100%;
+      }
+    }
+
+    &-img {
+      height: 100%;
+      width: 100%;
+      border-radius: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__l {
+    margin-right: 1rem;
+  }
+
+  &__r {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+    height: 10rem;
+
+    &-l {
+      flex: 1;
+    }
+  }
+
+  &__author {
+    font-size: 2.2rem;
+    font-weight: 600;
+  }
+
+  &__body {
+    font-size: 1.6rem;
+  }
+
+  &__time {
+    font-size: 1.2rem;
+  }
+
+  &__delete {
+    width: 1.7rem;
+    height: 1.7rem;
+    background-color: transparent;
+    transition: 0.3s ease-in-out background-color;
+
+    & svg {
+      width: 100%;
+      height: 100%;
+      fill: var(--color-danger);
+    }
+
+    &:hover {
+      background-color: var(--color-grey-light);
+    }
+  }
+
+  &__bottom {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin: 0 auto;
+    border-bottom: 0.1rem solid var(--color-grey-light);
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  &__iconbtn {
+    background-color: transparent;
+    transition: 0.3s ease-in-out all;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      background-color: var(--color-grey-light);
+    }
+  }
+
+  &__comments {
+    padding-left: 10rem;
+  }
+
+  &__comment {
+    display: flex;
+    &:not(:last-child) {
+      margin-bottom: 1.5rem;
+    }
+
+    &-abtn {
+      height: 3rem;
+      width: 3rem;
+      background-color: transparent;
+
+      & svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  &-c__l {
+    margin-right: 0.5rem;
+  }
+
+  &__commentauthor {
+    font-weight: 600;
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+  }
+
+  &__commentbody {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+  }
+
+  &__commenttime {
+    font-size: 1.1rem;
+  }
+
+  &__error {
+    display: flex;
+    justify-content: center;
+    color: var(--color-danger);
+    font-size: 2rem;
+  }
+
+  &__other {
+    width: 50%;
+    margin: 0 auto;
+  }
+
+  &__modal {
+    &__content {
+      text-align: center;
+
+      // &-c {
+      //   // background-color: pink;
+      // }
+    }
+
+    &__cancelbtn,
+    &__deletebtn {
+      width: 20%;
+      height: 3rem;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      border-radius: 0.4rem;
+      transition: 0.3s ease-in-out all;
+      text-transform: uppercase;
+      color: var(--color-white);
+      display: inline-block;
+
+      &:hover {
+        opacity: 0.7;
+      }
+
+      &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+    }
+
+    &__cancelbtn {
+      background-color: var(--color-primary);
+      margin-right: 2rem;
+    }
+
+    &__deletebtn {
+      background-color: var(--color-danger);
+    }
+
+    &__error {
+      font-size: 1.4rem;
+      color: var(--color-danger);
+      margin-top: 1rem;
+      font-weight: 700;
+
+      &::after {
+        content: "!";
+      }
+    }
+  }
+}
+
+.commentform {
+  // background-color: red;
+
+  &__input {
+    display: block;
+    width: 100%;
+    resize: none;
+    padding: 0.5rem;
+    border-radius: 0.8rem;
+    border: 0.1rem solid var(--color-grey-mid);
+    transition: 0.2s ease-in-out all;
+    font-family: "Merriweather", serif;
+    font-weight: 400;
+    font-size: 1.4rem;
+  }
+
+  &__submit {
+    height: 3rem;
+    width: 100%;
+    border-radius: 0.8rem;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    font-family: "Merriweather", serif;
+    font-weight: 400;
+    font-size: 1.2rem;
+    transition: 0.2s ease-in-out opacity;
+    outline: none;
+    margin-top: 0.5rem;
+
+    &:hover {
+      opacity: 0.7;
+    }
+
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+  }
+}

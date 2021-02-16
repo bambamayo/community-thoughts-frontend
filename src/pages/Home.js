@@ -5,7 +5,7 @@ import Thought from "../components/Thought";
 import { formatDate } from "../helpers";
 import { AuthContext } from "../context/auth";
 import ThoughtForm from "../components/ThoughtForm/ThoughtForm";
-import { FETCH_THOUGHTS_QUERY } from "../util/queries";
+import { FETCH_THOUGHTS_QUERY } from "../util/graphql/queries";
 
 export default function Home() {
   const { user } = React.useContext(AuthContext);

@@ -1,3 +1,3 @@
-export default function Spinner() {
-  return <span className="spinner"></span>;
+export default function Spinner({ small }) {
+  return <span className={small ? "spinner--small" : "spinner"}></span>;
 }

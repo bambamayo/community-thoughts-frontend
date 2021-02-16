@@ -40,6 +40,7 @@ export default function DownVote({
 
   return (
     <button
+      title="downvote"
       className="thought__iconbtn"
       onClick={!user ? () => history.push("/signup") : downvoteThought}
     >

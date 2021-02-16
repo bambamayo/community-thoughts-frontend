@@ -29,3 +29,31 @@ export const FETCH_THOUGHTS_QUERY = gql`
     }
   }
 `;
+
+export const FETCH_THOUGHT_QUERY = gql`
+  query($thoughtId: ID!) {
+    getThought(thoughtId: $thoughtId) {
+      username
+      id
+      createdAt
+      body
+      comments {
+        body
+        username
+        id
+        createdAt
+      }
+      upvotes {
+        username
+        id
+      }
+      downvotes {
+        username
+        id
+      }
+      downvoteCount
+      upvoteCount
+      commentCount
+    }
+  }
+`;
