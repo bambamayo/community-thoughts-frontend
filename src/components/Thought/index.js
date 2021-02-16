@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { BiUserCircle } from "react-icons/bi";
 import { AiTwotoneDelete } from "react-icons/ai";
@@ -24,7 +25,7 @@ export default function Thought({
   const history = useHistory();
 
   return (
-    <div className="thought">
+    <Link to={`/${author}/thought/${id}`} className="thought">
       <div className="thought__top">
         <div className="thought__postedby">
           {avatarPresent ? (
@@ -33,7 +34,7 @@ export default function Thought({
             </button>
           ) : (
             <button className="thought__postedby-btn">
-              <BiUserCircle title="image placeholder for users without avatar" />
+              <BiUserCircle title="image placeholder for user without avatar" />
             </button>
           )}
         </div>
@@ -60,7 +61,7 @@ export default function Thought({
           <span className="thought__metacount">{commentCount}</span>
         </button>
       </div>
-    </div>
+    </Link>
   );
 }
 

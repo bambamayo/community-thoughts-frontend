@@ -1,7 +1,8 @@
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import * as React from "react";
 import { useForm } from "../../util/hooks";
-import { FETCH_THOUGHTS_QUERY } from "../../util/queries";
+import { FETCH_THOUGHTS_QUERY } from "../../util/graphql/queries";
+import { CREATE_THOUGHT_MUTATION } from "../../util/graphql/mutations";
 
 export default function ThoughtForm({ username }) {
   const { values, onChange, onSubmit } = useForm(createNewPost, {
@@ -53,29 +54,3 @@ export default function ThoughtForm({ username }) {
     </form>
   );
 }
-
-const CREATE_THOUGHT_MUTATION = gql`
-  mutation createThought($body: String!) {
-    createThought(body: $body) {
-      id
-      body
-      createdAt
-      username
-      upvoteCount
-      commentCount
-      downvoteCount
-      upvotes {
-        username
-      }
-      downvotes {
-        username
-      }
-      comments {
-        id
-        username
-        createdAt
-        body
-      }
-    }
-  }
-`;

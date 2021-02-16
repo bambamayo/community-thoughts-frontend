@@ -42,6 +42,7 @@ export default function UpVote({
 
   return (
     <button
+      title="upvote"
       className="thought__iconbtn"
       onClick={!user ? () => history.push("/signup") : upvoteThought}
     >

@@ -20,7 +20,7 @@ export default function Header() {
             <li className="header__listitem">
               <NavLink
                 activeClassName="active"
-                to="login"
+                to="/login"
                 className="header__link"
               >
                 Login
@@ -31,7 +31,7 @@ export default function Header() {
             <li className="header__listitem">
               <NavLink
                 activeClassName="active"
-                to="signup"
+                to="/signup"
                 className="header__link"
               >
                 Create account

@@ -1,8 +1,14 @@
 .thought {
+  display: block;
   width: 100%;
   margin-bottom: 2rem;
   padding: 1rem 2rem;
   border-bottom: 0.1rem solid var(--color-grey-light);
+  transition: 0.3s ease-in-out background-color;
+
+  &:hover {
+    background-color: var(--color-post-hover);
+  }
 
   &__top {
     margin-bottom: 1rem;
