@@ -16,12 +16,20 @@ import {
   FETCH_THOUGHTS_QUERY,
   FETCH_THOUGHT_QUERY,
 } from "../util/graphql/queries";
-import { DELETE_THOUGHT, CREATE_COMMENT } from "../util/graphql/mutations";
+import {
+  DELETE_THOUGHT,
+  CREATE_COMMENT,
+  DELETE_COMMENT,
+} from "../util/graphql/mutations";
 import { useForm } from "../util/hooks";
 
 export default function SingleThought() {
   const [showModal, setShowModal] = React.useState(false);
   const [showCommentModal, setShowCommentModal] = React.useState(false);
+  const [commentToDelete, setCommentToDelete] = React.useState(null);
+  const [showDeleteCommentModal, setShowDeleteCommmentModal] = React.useState(
+    false
+  );
   const { values, onChange, onSubmit } = useForm(createComment, {
     comment: "",
   });
@@ -65,6 +73,34 @@ export default function SingleThought() {
       },
     }
   );
+
+  const [removeComment, { loading: deletingC, error: errorC }] = useMutation(
+    DELETE_COMMENT,
+    {
+      variables: {
+        thoughtId: id,
+        commentId: commentToDelete,
+      },
+    }
+  );
+
+  async function deleteComment() {
+    await removeComment();
+
+    if (errorC) return;
+    if (!deletingC && !errorC) {
+      handleShowDeleteCommentModal();
+    }
+  }
+
+  const handleShowDeleteCommentModal = (id) => {
+    if (commentToDelete) setCommentToDelete(null);
+    else {
+      setCommentToDelete(id);
+    }
+    setShowModal((prevState) => !prevState);
+    setShowDeleteCommmentModal((prevState) => !prevState);
+  };
 
   async function createComment() {
     values.comment = "";
@@ -174,13 +210,25 @@ export default function SingleThought() {
                 </button>
               </div>
               <div className="thought-s-c__r">
-                <span className="thought-s__commentauthor">
-                  {comment.username}
-                </span>
-                <p className="thought-s__commentbody">{comment.body}</p>
-                <span className="thought-s__commenttime">{`${formatDate(
-                  comment.createdAt
-                )} ago`}</span>
+                <div className="thought-s-c__div">
+                  <span className="thought-s__commentauthor">
+                    {comment.username}
+                  </span>
+                  <p className="thought-s__commentbody">{comment.body}</p>
+                  <span className="thought-s__commenttime">{`${formatDate(
+                    comment.createdAt
+                  )} ago`}</span>
+                </div>
+                {user && user.username === comment.username && (
+                  <button
+                    disabled={deletingC}
+                    onClick={() => handleShowDeleteCommentModal(comment.id)}
+                    className="thought-s__delete"
+                    title="delete thought"
+                  >
+                    <AiTwotoneDelete title="delete thought" />
+                  </button>
+                )}
               </div>
             </div>
           ))}
@@ -193,16 +241,26 @@ export default function SingleThought() {
       {showModal && (
         <Modal
           modalCloseBtnClick={
-            showCommentModal ? handleCommentModal : () => setShowModal(false)
+            showDeleteCommentModal
+              ? handleShowDeleteCommentModal
+              : showCommentModal
+              ? handleCommentModal
+              : () => setShowModal(false)
           }
           handleModalClick={
-            showCommentModal ? handleCommentModal : () => setShowModal(false)
+            showDeleteCommentModal
+              ? handleShowDeleteCommentModal
+              : showCommentModal
+              ? handleCommentModal
+              : () => setShowModal(false)
           }
           cancelButton={showCommentModal ? true : false}
           show={showModal}
           className="thought-s__modal"
           headerText={
-            showCommentModal
+            showDeleteCommentModal
+              ? "Are you sure you want to delete comment"
+              : showCommentModal
               ? "Add comment"
               : "Are you sure you want to delete thought?"
           }
@@ -213,7 +271,29 @@ export default function SingleThought() {
               : "thought-s__modal__content"
           }
         >
-          {showCommentModal ? (
+          {showDeleteCommentModal ? (
+            <>
+              <button
+                onClick={handleShowDeleteCommentModal}
+                className="thought-s__modal__cancelbtn"
+                disabled={deletingC}
+              >
+                Cancel
+              </button>
+              <button
+                disabled={deletingC}
+                onClick={deleteComment}
+                className="thought-s__modal__deletebtn"
+              >
+                {deletingC ? <Spinner small={true} /> : "Delete"}
+              </button>
+              {errorC && (
+                <p className="thought-s__modal__error">
+                  Could not perform operation, please try again
+                </p>
+              )}
+            </>
+          ) : showCommentModal ? (
             <form onSubmit={onSubmit} className="commentform">
               <textarea
                 placeholder="your comment"

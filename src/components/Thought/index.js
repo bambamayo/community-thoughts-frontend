@@ -2,10 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { BiUserCircle } from "react-icons/bi";
-import { AiTwotoneDelete } from "react-icons/ai";
 import { FaRegComment } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
-import { AuthContext } from "../../context/auth";
+// import { AuthContext } from "../../context/auth";
 import UpVote from "../VoteButtons/UpVote";
 import DownVote from "../VoteButtons/DownVote";
 
@@ -21,7 +20,7 @@ export default function Thought({
   upvotes,
   downvotes,
 }) {
-  const { user } = React.useContext(AuthContext);
+  // const { user } = React.useContext(AuthContext);
   const history = useHistory();
 
   return (
@@ -43,11 +42,6 @@ export default function Thought({
           <span className="thought__time">{timePosted}</span>
           <p className="thought__body">{body}</p>
         </div>
-        {user && user.username === author && (
-          <button className="thought__delete">
-            <AiTwotoneDelete title="delete icon" />
-          </button>
-        )}
       </div>
 
       <div className="thought__bottom">
