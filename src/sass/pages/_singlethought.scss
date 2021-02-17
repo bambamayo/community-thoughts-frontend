@@ -122,6 +122,13 @@
     margin-right: 0.5rem;
   }
 
+  &-c__r {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   &__commentauthor {
     font-weight: 600;
     font-size: 1.6rem;

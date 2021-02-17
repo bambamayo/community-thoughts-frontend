@@ -45,3 +45,17 @@ export const CREATE_COMMENT = gql`
     }
   }
 `;
+
+export const DELETE_COMMENT = gql`
+  mutation deleteComment($thoughtId: ID!, $commentId: ID!) {
+    deleteComment(thoughtId: $thoughtId, commentId: $commentId) {
+      id
+      comments {
+        id
+        username
+        createdAt
+        body
+      }
+    }
+  }
+`;
